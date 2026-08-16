@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 const categories = [
   { emoji: "💻", name: "IT" },
   { emoji: "📜", name: "Tarix" },
@@ -19,24 +21,24 @@ export default function HomePage() {
 
         {/* HEADER */}
         <header className="flex items-center justify-between">
-          <a href="/" className="text-2xl font-bold">
+          <Link href="/" className="text-2xl font-bold">
             Quiz<span className="text-blue-500">Game</span>
-          </a>
+          </Link>
 
           <div className="flex gap-3">
-            <a
+            <Link
               href="/categories"
               className="rounded-xl border border-white/10 px-5 py-2.5 text-sm transition hover:bg-white/10"
             >
               📚 Kategoriyalar
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/profile"
               className="rounded-xl border border-white/10 px-5 py-2.5 text-sm transition hover:bg-white/10"
             >
               👤 Profil
-            </a>
+            </Link>
           </div>
         </header>
 
@@ -58,12 +60,12 @@ export default function HomePage() {
             </p>
 
             {/* BOSHLASH */}
-            <a
+            <Link
               href="/categories"
               className="mt-8 inline-flex rounded-2xl bg-blue-600 px-8 py-4 text-lg font-semibold transition hover:bg-blue-500"
             >
               🚀 Boshlash
-            </a>
+            </Link>
 
           </div>
         </section>
@@ -82,17 +84,17 @@ export default function HomePage() {
               </p>
             </div>
 
-            <a
+            <Link
               href="/categories"
               className="hidden text-sm text-blue-400 hover:text-blue-300 md:block"
             >
               Barchasi →
-            </a>
+            </Link>
           </div>
 
           <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
             {categories.map((category) => (
-              <a
+              <Link
                 key={category.name}
                 href={`/quiz?category=${encodeURIComponent(category.name)}`}
                 className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:bg-white/10"
@@ -108,7 +110,7 @@ export default function HomePage() {
                 <p className="mt-1 text-sm text-gray-500">
                   Testni boshlash →
                 </p>
-              </a>
+              </Link>
             ))}
           </div>
 

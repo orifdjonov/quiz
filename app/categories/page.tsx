@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 const categories = [
   { emoji: "💻", name: "IT" },
   { emoji: "📜", name: "Tarix" },
@@ -12,19 +14,19 @@ const categories = [
   { emoji: "🎵", name: "Musiqa" },
 ];
 
-function openCategory(category: string) {
-  window.location.assign(
-    `/quiz?category=${encodeURIComponent(category)}`
-  );
-}
-
 export default function CategoriesPage() {
+  const router = useRouter();
+
+  function openCategory(category: string) {
+    router.push(`/quiz?category=${encodeURIComponent(category)}`);
+  }
+
   return (
     <main className="min-h-screen bg-[#0F1C2E] px-6 py-10 text-white">
       <div className="mx-auto max-w-5xl">
 
         <button
-          onClick={() => window.location.assign("/")}
+          onClick={() => router.push("/")}
           className="text-gray-400 hover:text-white"
         >
           ← Bosh sahifa

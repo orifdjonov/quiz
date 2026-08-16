@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { questions } from "../data/questions";
 
 type Question = {
@@ -98,6 +98,7 @@ export default function QuizPage() {
 }
 
 function QuizContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
 
@@ -111,7 +112,7 @@ function QuizContent() {
   const [earnedXP, setEarnedXP] = useState(0);
   const [finalScore, setFinalScore] = useState(0);
 
-  useEffect(() => {
+  function loadQuiz() {
     let list = questions as Question[];
 
     if (category) {
@@ -123,7 +124,23 @@ function QuizContent() {
     }
 
     setQuizQuestions(shuffle(list).slice(0, 10));
+  }
+
+  useEffect(() => {
+    loadQuiz();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [category]);
+
+  function restartQuiz() {
+    setCurrent(0);
+    setScore(0);
+    setSelected(null);
+    setTimeLeft(30);
+    setFinished(false);
+    setEarnedXP(0);
+    setFinalScore(0);
+    loadQuiz();
+  }
 
   useEffect(() => {
     if (finished || quizQuestions.length === 0) return;
@@ -211,7 +228,7 @@ function QuizContent() {
 
           <button
             onClick={() =>
-              window.location.assign("/categories")
+              router.push("/categories")
             }
             className="mt-6 rounded-xl bg-blue-600 px-6 py-3 font-semibold hover:bg-blue-500"
           >
@@ -330,9 +347,7 @@ function QuizContent() {
           <div className="mt-8 flex gap-3">
 
             <button
-              onClick={() =>
-                window.location.reload()
-              }
+              onClick={restartQuiz}
               className="flex-1 rounded-xl border border-white/10 py-3 font-semibold hover:bg-white/10"
             >
               🔄 Qayta
@@ -340,7 +355,7 @@ function QuizContent() {
 
             <button
               onClick={() =>
-                window.location.assign("/categories")
+                router.push("/categories")
               }
               className="flex-1 rounded-xl bg-blue-600 py-3 font-semibold hover:bg-blue-500"
             >
@@ -351,7 +366,7 @@ function QuizContent() {
 
           <button
             onClick={() =>
-              window.location.assign("/profile")
+              router.push("/profile")
             }
             className="mt-3 w-full rounded-xl border border-white/10 py-3 font-semibold hover:bg-white/10"
           >
@@ -377,7 +392,7 @@ function QuizContent() {
 
           <button
             onClick={() =>
-              window.location.assign("/categories")
+              router.push("/categories")
             }
             className="text-sm text-gray-400 hover:text-white"
           >

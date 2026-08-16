@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type UserStats = {
   xp: number;
@@ -21,6 +22,8 @@ const defaultStats: UserStats = {
 };
 
 export default function ProfilePage() {
+  const router = useRouter();
+
   const [stats, setStats] =
     useState<UserStats>(defaultStats);
 
@@ -52,7 +55,7 @@ export default function ProfilePage() {
 
         <button
           onClick={() =>
-            window.location.assign("/")
+            router.push("/")
           }
           className="text-gray-400 hover:text-white"
         >
@@ -214,7 +217,7 @@ export default function ProfilePage() {
 
           <button
             onClick={() =>
-              window.location.assign("/categories")
+              router.push("/categories")
             }
             className="flex-1 rounded-xl bg-blue-600 py-3 font-semibold hover:bg-blue-500"
           >
@@ -223,7 +226,7 @@ export default function ProfilePage() {
 
           <button
             onClick={() =>
-              window.location.assign("/")
+              router.push("/")
             }
             className="flex-1 rounded-xl border border-white/10 py-3 font-semibold hover:bg-white/10"
           >
