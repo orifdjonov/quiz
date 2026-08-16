@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { questions } from "../data/questions";
 
@@ -90,6 +90,14 @@ function saveResult(correctAnswers: number, total: number) {
 }
 
 export default function QuizPage() {
+  return (
+    <Suspense fallback={null}>
+      <QuizContent />
+    </Suspense>
+  );
+}
+
+function QuizContent() {
   const searchParams = useSearchParams();
   const category = searchParams.get("category");
 
