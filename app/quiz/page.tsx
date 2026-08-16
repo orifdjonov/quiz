@@ -123,7 +123,14 @@ function QuizContent() {
       );
     }
 
-    setQuizQuestions(shuffle(list).slice(0, 10));
+    const picked = shuffle(list)
+      .slice(0, 10)
+      .map((q) => ({
+        ...q,
+        options: shuffle(q.options),
+      }));
+
+    setQuizQuestions(picked);
   }
 
   useEffect(() => {
